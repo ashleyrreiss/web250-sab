@@ -6,7 +6,7 @@ class Bird {
     var $nesting = "tree";
     var $conservation;
     var $song = "chirp";
-    public static $flying = "yes";
+    public $flying = "yes";
     public static $instance_count = 0;
     public static $egg_num = 0;
 
@@ -17,8 +17,8 @@ class Bird {
       return $obj;
     }
 
-    public static function can_fly() {
-        $flying_string = static::$flying == "yes" ? "can fly" : "is stuck on the ground";
+    public function can_fly() {
+        $flying_string = $this->flying == "yes" ? "can fly" : "is stuck on the ground";
         return "This bird " . $flying_string . ".";
     }
 }
@@ -33,7 +33,7 @@ class YellowBelliedFlyCatcher extends Bird {
 class Kiwi extends Bird {
     var $name = "kiwi";
     var $diet = "omnivorous";
-    public static $flying = "no";
+    public $flying = "no";
 }
 
 ?>

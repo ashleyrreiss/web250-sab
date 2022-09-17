@@ -19,7 +19,7 @@ class Bird {
 
     public function can_fly() {
         $flying_string = $this->flying == "yes" ? "can fly" : "is stuck on the ground";
-        return "This bird " . $flying_string . ".";
+        return $flying_string;
     }
 }
 

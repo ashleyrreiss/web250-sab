@@ -37,10 +37,6 @@ class Bicycle {
 
 class Unicycle extends Bicycle {
   protected $wheels = 1;
-
-  public function bug_test() {
-    return $this->weight_kg;
-  }
 }
 
 $trek = new Bicycle;
@@ -79,6 +75,4 @@ $uni->set_weight_kg(1) . "<br>";
 echo $uni->weight_kg() . "<br>";
 echo $uni->weight_lbs() . "<br>";
 echo "<br>";
-
-echo $uni->bug_test();
 ?>

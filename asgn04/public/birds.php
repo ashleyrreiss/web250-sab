@@ -14,7 +14,7 @@
     <div class="intro">
       <img class="inset" src="<?php echo url_for('/images/tufted-titmouse.jpg') ?>" />
       <h2>Western North Carolina Birds</h2>
-      <p>Birds found here in our area.</p>
+      <p>Birds found here in our local area.</p>
       <p>We will deliver it to your door and let you try it before you buy it.</p>
     </div>
 

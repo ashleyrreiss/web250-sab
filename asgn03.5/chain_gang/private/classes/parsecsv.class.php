@@ -1,6 +1,6 @@
-<?php
+<?php 
 
-class ParseCSV {
+  class ParseCSV {
 
   public static $delimiter = ',';
   private $filename;
@@ -63,5 +63,4 @@ class ParseCSV {
     $this->row_count = 0;
   }
 }
-
 ?>

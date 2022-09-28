@@ -38,15 +38,15 @@
       <?php foreach($bike_array as $args) { ?>
       <?php $bike = new Bicycle($args); ?>
       <tr>
-        <td><?php echo h($bike->brand); ?></td>
-        <td><?php echo h($bike->model); ?></td>
-        <td><?php echo h($bike->year); ?></td>
-        <td><?php echo h($bike->category); ?></td>
-        <td><?php echo h($bike->gender); ?></td>
-        <td><?php echo h($bike->color); ?></td>
-        <td><?php echo h($bike->weight_kg()) . '/ ' . h($bike->weight_lbs()); ?></td>
-        <td><?php echo h($bike->condition()); ?></td>
-        <td><?php echo h($bike->price); ?></td>
+        <td><?= h($bike->brand); ?></td>
+        <td><?= h($bike->model); ?></td>
+        <td><?= h($bike->year); ?></td>
+        <td><?= h($bike->category); ?></td>
+        <td><?= h($bike->gender); ?></td>
+        <td><?= h($bike->color); ?></td>
+        <td><?= h($bike->weight_kg()) . '/ ' . h($bike->weight_lbs()); ?></td>
+        <td><?= h($bike->condition()); ?></td>
+        <td><?= h($bike->price); ?></td>
       </tr>
       <?php } ?>
     </table>

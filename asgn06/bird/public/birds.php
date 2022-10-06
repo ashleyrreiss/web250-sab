@@ -18,34 +18,33 @@
       <p>We will deliver it to your door and let you try it before you buy it.</p>
     </div>
 
-    <table id="birds">
+    <table id="birds" border="1px">
       <tr>
         <th>Common Name</th>
         <th>Habitat</th>
         <th>Food</th>
-        <th>Nest Placement</th>
-        <th>Behavior</th>
         <th>Conservation ID</th>
         <th>Backyard Tips</th>
+        <th>&nbsp;</th>
       </tr>
 
   <?php 
-  $parser = new ParseCSV(PRIVATE_PATH . '/wnc-birds.csv');
-  $bird_array = $parser->parse();
+
+  $birds = Bird::find_all();
+
   ?>
-      <?php foreach($bird_array as $args) { ?>
-      <?php $bird = new Bird($args); ?>
+      <?php foreach($birds as $bird) { ?>
       <tr>
         <td><?= h($bird->common_name); ?></td>
         <td><?= h($bird->habitat); ?></td>
         <td><?= h($bird->food); ?></td>
-        <td><?= h($bird->nest_placement); ?></td>
-        <td><?= h($bird->behavior); ?></td>
         <td><?= h($bird->conservation()); ?></td>
         <td><?= h($bird->backyard_tips); ?></td>
+        <td><a href="detail.php?id=<?php echo $bird->id; ?>">View</a></td>
       </tr>
       <?php } ?>
     </table>
+
   </div>
 
 </div>

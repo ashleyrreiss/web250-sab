@@ -7,10 +7,10 @@ class Bicycle extends DatabaseObject {
   /**
    * establish the column names to use for Bicycle class
    *
-   * @var array   column names
+   * @var [array]   column names
    */
 
-  static protected $db_columns = ['id', 'brand', 'model', 'year', 'category', 'color', 'gender', 'price', 'weight_kg', 'condition_id', 'description'];
+  static public $db_columns = ['id', 'brand', 'model', 'year', 'category', 'color', 'gender', 'price', 'weight_kg', 'condition_id', 'description'];
 
 
   public $id;
@@ -37,6 +37,14 @@ class Bicycle extends DatabaseObject {
     5 => 'Like New'
   ];
 
+
+  /**
+   * Construct the properties of a bicycle object
+   *
+   * @param   [array]  $args  An array of arguments to populate
+   *    the properties of a bicycle object
+   *
+   */
   public function __construct($args=[]) {
     //$this->brand = isset($args['brand']) ? $args['brand'] : '';
     $this->brand = $args['brand'] ?? '';
@@ -58,27 +66,61 @@ class Bicycle extends DatabaseObject {
     // }
   }
 
+  /**
+   * Builds a proper name for a bicycle object
+   *
+   * @return  [string]  Combines brand, model, and year into
+   *    a name for the bicycle
+   */
   public function name() {
     return "{$this->brand} {$this->model} {$this->year}";
   }
 
+  /**
+   * Format the weight in kilograms to have two decimal points
+   *
+   * @return  [string]  the formatted weight in kilograms with 'kg'
+   */
   public function weight_kg() {
     return number_format($this->weight_kg, 2) . ' kg';
   }
 
+  /**
+   * Set the weight in kilograms, formatted
+   *
+   * @param   [int]  $value  the weight to set
+   *
+   */
   public function set_weight_kg($value) {
     $this->weight_kg = floatval($value);
   }
 
+  /**
+   * Convert weight in kilograms to weight in pounds, formatted
+   *
+   * @return  [string]  Formatted weight in pounds
+   */
   public function weight_lbs() {
     $weight_lbs = floatval($this->weight_kg) * 2.2046226218;
     return number_format($weight_lbs, 2) . ' lbs';
   }
 
+  /**
+   * Set the weight in pounds, formatted
+   *
+   * @param   [int]  $value  weight to set, in pounds 
+   *
+   */
   public function set_weight_lbs($value) {
     $this->weight_kg = floatval($value) / 2.2046226218;
   }
 
+  /**
+   * Convert the condition number to the matching condition string
+   *  in condition_options  
+   *
+   * @return  [string]  Either a condition string, or unknown if no condition id
+   */
   public function condition() {
     if($this->condition_id > 0) {
       return self::CONDITION_OPTIONS[$this->condition_id];
@@ -87,6 +129,12 @@ class Bicycle extends DatabaseObject {
     }
   }
 
+  /**
+   * Validate that brand and model are not NULL when inserting or editing
+   * the bicycle class
+   *
+   * @return  [string]  errors, if there are any. Otherwise, nothing.
+   */
   protected function validate() {
     $this->errors = [];
 

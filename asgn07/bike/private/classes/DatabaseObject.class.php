@@ -1,4 +1,5 @@
-<?php
+<?php require_once('Bicycle.class.php');
+
 
 class DatabaseObject {
   
@@ -7,10 +8,25 @@ class DatabaseObject {
   static protected $columns = [];
   public $errors = [];
 
+  /**
+   * Set the database to be used
+   *
+   * @param   [string]  $database  name of the database
+   *
+   */
   static public function set_database($database) {
     self::$database = $database;
   }
 
+  /**
+   * Use SQL statement to find something in the database
+   *
+   * @param   string  $sql  SQL statement - built in find_by_id() or 
+   *    find_all()
+   *
+   * @return  [string/array]     an error, if no results, or an array of 
+   * results from the SQL statement
+   */
   static public function find_by_sql($sql) {
     $result = static::$database->query($sql);
     if(!$result) {
@@ -27,11 +43,23 @@ class DatabaseObject {
     return $object_array;
   }
 
+  /**
+   * Builds SQL statement to find all columns from a given table
+   *
+   * @return  [string]  SQL statement
+   */
   static public function find_all() {
     $sql="SELECT * FROM " . static::$table_name . " ";
     return static::find_by_sql($sql);
   }
 
+  /**
+   * Build SQL statement from given id
+   *
+   * @param   string  $id  the id to be located in database
+   *
+   * @return  [string/bool]       first object in array, or false if no results
+   */
   static public function find_by_id($id) {
     $sql = "SELECT * FROM " . static::$table_name;
     $sql .= " WHERE id='" . self::$database->escape_string($id) . "'";
@@ -43,6 +71,13 @@ class DatabaseObject {
     }
   }
   
+  /**
+   * Instantiate a new object
+   *
+   * @param   [string]  $record  record to be instantiated
+   *
+   * @return  [string]           returns instantiated object
+   */
   static protected function instantiate($record) {
     $object = new static;
     foreach($record as $property => $value) {
@@ -53,6 +88,11 @@ class DatabaseObject {
     return $object;
   }
 
+  /**
+   * Skeleton for object validation function, to be customized
+   * for each class
+   *
+   */
   protected function validate() {
     $this->errors = [];
 
@@ -62,10 +102,10 @@ class DatabaseObject {
   }
 
   /**
-   * Instance function: create instance using SQL statement,
+   * an instance function: create instance using SQL statement,
    * taking attributes from the attributes() function
    *
-   * @return  boolean  True/False - succeeded in creation
+   * @return  [boolean]  True/False - succeeded in creation
    */
 
   protected function create() {
@@ -88,7 +128,7 @@ class DatabaseObject {
   /**
    * Update object with new information
    *
-   * @return  boolean  success or not success
+   * @return  [string/boolean]  success (SQL string) or not success (false)
    */
   protected function update() {
     $this->validate();
@@ -107,6 +147,12 @@ class DatabaseObject {
     return $result;
   }
 
+  /**
+   * Creates if it isn't created yet, or updates if it has already
+   * been created
+   *
+   * @return  [function]  executes a function
+   */
   public function save() {
     if(isset($this->id)) {
       return $this->update();
@@ -115,6 +161,12 @@ class DatabaseObject {
     }
   }
 
+  /**
+   * Takes attribute arguments and merges them
+   *
+   * @param   [array]  $args  the array of arguments to be merged
+   *
+   */
   public function merge_attributes($args=[]) {
     foreach($args as $key => $value) {
       if(property_exists($this, $key) && !is_null($value)) {
@@ -128,7 +180,7 @@ class DatabaseObject {
    * Builds columns from attributes, excluding the id column,
    * using the db_columns() function
    *
-   * @return  array  [attributes array]
+   * @return  [array]  attributes array
    */
 
   public function attributes() {
@@ -143,7 +195,7 @@ class DatabaseObject {
   /**
    * Escapes characters for sanitized value input
    *
-   * @return  array  array of escaped values
+   * @return  [array]  array of escaped values
    */
 
   protected function sanitized_attributes() {
@@ -155,6 +207,11 @@ class DatabaseObject {
     return $sanitized;
   }
 
+  /**
+   * Builds SQL statement to delete one row in the database
+   *
+   * @return  [string]  SQL statement for deleting row
+   */
   public function delete() {
     $sql = "DELETE FROM " . static::$table_name . " ";
     $sql .= "WHERE id='" . self::$database->escape_string($this->id) . "' ";

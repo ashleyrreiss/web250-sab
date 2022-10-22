@@ -9,11 +9,14 @@ class DatabaseObject {
   public $errors = [];
 
   /**
-   * Set the database to be used
+   * Take database value from database_functions and set it
+   *  as the database for use on site
    *
-   * @param   [string]  $database  name of the database
+   * @param   [string]  $database - database connect variable
+   *    from initialize.php
    *
    */
+  
   static public function set_database($database) {
     self::$database = $database;
   }
@@ -27,6 +30,7 @@ class DatabaseObject {
    * @return  [string/array]     an error, if no results, or an array of 
    * results from the SQL statement
    */
+
   static public function find_by_sql($sql) {
     $result = static::$database->query($sql);
     if(!$result) {
@@ -48,6 +52,7 @@ class DatabaseObject {
    *
    * @return  [string]  SQL statement
    */
+
   static public function find_all() {
     $sql="SELECT * FROM " . static::$table_name . " ";
     return static::find_by_sql($sql);
@@ -60,6 +65,7 @@ class DatabaseObject {
    *
    * @return  [string/bool]       first object in array, or false if no results
    */
+
   static public function find_by_id($id) {
     $sql = "SELECT * FROM " . static::$table_name;
     $sql .= " WHERE id='" . self::$database->escape_string($id) . "'";
@@ -72,12 +78,15 @@ class DatabaseObject {
   }
   
   /**
-   * Instantiate a new object
+   * Takes record - from find_by_sql() - and if it exists,
+   * converts it to a new instantiated object
    *
-   * @param   [string]  $record  record to be instantiated
+   * @param   [string]  $record  record to be instantiated 
+   *    - variable from find_by_sql() 
    *
    * @return  [string]           returns instantiated object
    */
+
   static protected function instantiate($record) {
     $object = new static;
     foreach($record as $property => $value) {
@@ -91,8 +100,8 @@ class DatabaseObject {
   /**
    * Skeleton for object validation function, to be customized
    * for each class
-   *
    */
+
   protected function validate() {
     $this->errors = [];
 
@@ -126,10 +135,11 @@ class DatabaseObject {
   }
 
   /**
-   * Update object with new information
+   * Update object with new attribute values
    *
    * @return  [string/boolean]  success (SQL string) or not success (false)
    */
+
   protected function update() {
     $this->validate();
     if(!empty($this->errors)) { return false; }
@@ -148,11 +158,12 @@ class DatabaseObject {
   }
 
   /**
-   * Creates if it isn't created yet, or updates if it has already
-   * been created
+   * Creates if it doesn't have an ID value set, or updates 
+   * if it has already had an ID value set
    *
-   * @return  [function]  executes a function
+   * @return  [function]  executes appropriate function
    */
+
   public function save() {
     if(isset($this->id)) {
       return $this->update();
@@ -162,11 +173,12 @@ class DatabaseObject {
   }
 
   /**
-   * Takes attribute arguments and merges them
+   * Takes attribute arguments and merges them into values
+   * if the property exists and not null.
    *
    * @param   [array]  $args  the array of arguments to be merged
-   *
    */
+
   public function merge_attributes($args=[]) {
     foreach($args as $key => $value) {
       if(property_exists($this, $key) && !is_null($value)) {
@@ -178,7 +190,7 @@ class DatabaseObject {
 
   /**
    * Builds columns from attributes, excluding the id column,
-   * using the db_columns() function
+   * using the db_columns array
    *
    * @return  [array]  attributes array
    */
@@ -195,7 +207,7 @@ class DatabaseObject {
   /**
    * Escapes characters for sanitized value input
    *
-   * @return  [array]  array of escaped values
+   * @return  [array]  array of escaped attribute values
    */
 
   protected function sanitized_attributes() {
@@ -212,6 +224,7 @@ class DatabaseObject {
    *
    * @return  [string]  SQL statement for deleting row
    */
+
   public function delete() {
     $sql = "DELETE FROM " . static::$table_name . " ";
     $sql .= "WHERE id='" . self::$database->escape_string($this->id) . "' ";

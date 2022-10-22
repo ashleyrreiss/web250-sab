@@ -8,12 +8,14 @@ if(!isset($bicycle)) {
 
 <dl>
   <dt>Brand</dt>
-  <dd><input type="text" name="bicycle[brand]" value="<?php echo h($bicycle->brand); ?>" /></dd>
+  <dd><input type="text" name="bicycle[brand]" value="<?php echo h($bicycle->brand); ?>" /></dd> <font color="ff0000"> <?php if (in_array("Brand cannot be blank.", $bicycle->errors))
+   echo ('Brand cannot be blank'); ?> </font>
 </dl>
 
 <dl>
   <dt>Model</dt>
-  <dd><input type="text" name="bicycle[model]" value="<?php echo h($bicycle->model); ?>" /></dd>
+  <dd><input type="text" name="bicycle[model]" value="<?php echo h($bicycle->model); ?>" /></dd> <font color="ff0000"> <?php if (in_array("Model cannot be blank.", $bicycle->errors))
+   echo ('Model cannot be blank'); ?> </font>
 </dl>
 
 <dl>

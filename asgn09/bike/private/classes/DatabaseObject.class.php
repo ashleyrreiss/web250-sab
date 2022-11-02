@@ -114,7 +114,7 @@ class DatabaseObject {
    * an instance function: create instance using SQL statement,
    * taking attributes from the attributes() function
    *
-   * @return  [boolean]  True/False - succeeded in creation
+   * @return  [string/boolean]  success (SQL string) or not success (false)
    */
 
   protected function create() {

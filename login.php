@@ -26,7 +26,7 @@ if(is_post_request()) {
     if($user != false && $user->verify_password($password)){
       // Mark user as logged in
       $session->login($user); 
-      redirect_to(url_for('index.php'));
+      redirect_to(url_for('../web250/sab/index.php'));
     } else {
       // username not found or password does not match
       $errors[] = "Log in was unsuccessful.";
@@ -48,7 +48,7 @@ if(is_post_request()) {
     <input type="text" name="username" value="<?php echo h($username); ?>" /><br />
     Password:<br />
     <input type="password" name="password" value="" /><br />
-    <input type="submit" name="submit" value="Create User"  />
+    <input type="submit" name="submit" value="Log In"  />
   </form>
 
 </div>

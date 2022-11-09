@@ -7,7 +7,7 @@ if(!isset($_GET['id'])) {
 }
 $id = $_GET['id'];
 $user = User::find_by_id($id);
-if($admin == false) {
+if($user == false) {
   redirect_to(url_for('/staff/users/index.php'));
 }
 

@@ -2,6 +2,8 @@
 DROP DATABASE IF EXISTS sabird;
 CREATE DATABASE sabird;
 
+USE sabird;
+
 -- Start here for running SQL on your webhost
 -- Make sure to select your database first from 
 -- the left-hand side menu choices

@@ -102,7 +102,6 @@
     // Need to re-write for OOP
     $user = User::find_by_username($username);
     if($user === false || $user->id == $current_id) {
-      // is unique
       return true;
     } else {
       return false;

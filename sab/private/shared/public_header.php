@@ -11,7 +11,7 @@
 
     <header>
       <h1>
-        <a href="<?php echo url_for('index.php'); ?>">
+        <a href="<?php echo url_for('../web250/sab/index.php'); ?>">
           Southern Appalachian Birds
         </a>
       </h1>

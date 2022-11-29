@@ -2,6 +2,10 @@
   if(!isset($page_title)) { $page_title = 'Bird Area'; }
 ?>
 
+<?php
+  require_login();
+?>
+
 <!doctype html>
 
 <html lang="en">
@@ -16,6 +20,9 @@
       <h1>SA Birds Admin Area</h1>
     </header>
 
+    <navigation>
+      <a href="<?php echo url_for('../../web250/sab/index.php'); ?>">Back to Birds</a></li>
+    </navigation>
 
 
     <?php echo display_session_message(); ?>

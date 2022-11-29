@@ -10,8 +10,8 @@ $user = User::find_by_id($id);
 
 <?php $page_title = 'Show User: ' . h($user->full_name()); ?>
 <?php include(SHARED_PATH . '/user_header.php'); ?>
-
-  <a class="back-link" href="<?php echo url_for('../web250/sab/users/index.php'); ?>">&laquo; Back to List</a>
+  <br>
+  <a class="back-link" href="<?php echo url_for('../web250/sab/users/index.php'); ?>">&laquo; Back to Members</a>
 
     <h1>User: <?php echo h($user->full_name()); ?></h1>
 

@@ -19,7 +19,7 @@ if(is_post_request()) {
   $result = $user->save();
 
   if($result === true) {
-    $_SESSION['message'] = 'The user was updated successfully.';
+    $session->message('The user was updated successfully.');
     redirect_to(url_for('../web250/sab/users/show.php?id=' . $id));
   } else {
     // show errors

@@ -10,7 +10,7 @@ class Bird extends DatabaseObject {
   public $common_name;
   public $habitat;
   public $food;
-  public $conervation_id;
+  public $conservation_id;
   public $backyard_tips;
 
   public function __construct($args=[]) {

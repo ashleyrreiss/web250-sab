@@ -27,4 +27,4 @@ include(SHARED_PATH . '/public_header.php');
       <?php } ?>
   	</table>
 
-<?php include(SHARED_PATH . '/user_footer.php'); ?>
+<?php include(SHARED_PATH . '/public_footer.php'); ?>

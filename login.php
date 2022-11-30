@@ -26,7 +26,7 @@ if(is_post_request()) {
     if($user != false && $user->verify_password($password)){
       // Mark user as logged in
       $session->login($user); 
-      redirect_to(url_for('../web250/sab/index.php'));
+      redirect_to(url_for('../sab/birds/index.php'));
     } else {
       // username not found or password does not match
       $errors[] = "Log in was unsuccessful.";

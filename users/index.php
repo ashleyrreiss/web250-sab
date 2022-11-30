@@ -6,7 +6,7 @@
 ?>
 
     <h1>Members</h1>
-      <a href="<?php echo url_for('../web250/sab/users/new.php'); ?>">Add member</a>
+      <a href="<?php echo url_for('../sab/users/new.php'); ?>">Add member</a>
 
   	<table border="1">
       <tr>
@@ -27,9 +27,9 @@
           <td><?= h($user->last_name); ?></td>
           <td><?= h($user->email); ?></td>
           <td><?= h($user->username); ?></td>
-          <td><a href="<?= url_for('../web250/sab/users/show.php?id=' . h(u($user->id))); ?>">View</a></td>
-          <td><a href="<?= url_for('../web250/sab/users/edit.php?id=' . h(u($user->id))); ?>">Edit</a></td>
-          <td><a href="<?= url_for('../web250/sab/users/delete.php?id=' . h(u($user->id))); ?>">Delete</a></td>
+          <td><a href="<?= url_for('../sab/users/show.php?id=' . h(u($user->id))); ?>">View</a></td>
+          <td><a href="<?= url_for('../sab/users/edit.php?id=' . h(u($user->id))); ?>">Edit</a></td>
+          <td><a href="<?= url_for('../sab/users/delete.php?id=' . h(u($user->id))); ?>">Delete</a></td>
     	  </tr>
       <?php } ?>
   	</table>

@@ -16,7 +16,7 @@
   // +4 for sab
   // + 11 for webhost -- web250/sab
 
-  $public_end = strpos($_SERVER['SCRIPT_NAME'], '') +4;
+  $public_end = strpos($_SERVER['SCRIPT_NAME'], '') +11;
   $doc_root = substr($_SERVER['SCRIPT_NAME'], 0, $public_end);
   define("WWW_ROOT", $doc_root);
 

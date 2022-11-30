@@ -11,7 +11,7 @@
 
     <header>
       <h1>
-        <a href="<?php echo url_for('../web250/sab/index.php'); ?>">
+        <a href="<?php echo url_for('../../web250/sab/birds.php'); ?>">
           Southern Appalachian Birds
         </a>
       </h1>
@@ -20,14 +20,19 @@
     <p>Welcome to the Southern Appalachian Bird site.</p>
   
     <navigation>
-
+      <ul>
         <?php 
-        if($session->is_logged_in()) {
-        echo "<a href='logout.php'>Logout</a>";
+        if($session->is_logged_in()) { ?>
+          <li>User: <?php echo $session->username; ?></li>
+          <li><a href='logout.php'>Logout</a></li>
+          <li><a href="<?php echo url_for('../../web250/sab/users/index.php'); ?>">Update Users</a></li>
+          <li><a href="<?php echo url_for('../../web250//sab/birds/index.php'); ?>">Bird Administration</a></li>
+        <?php 
         } else {
           echo "<a href='login.php'>Login</a>";
         }
-
         ?>
+      </ul>
+      
 
     </navigation>

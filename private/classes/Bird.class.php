@@ -4,21 +4,18 @@ class Bird extends DatabaseObject {
 
   // ----- START OF ACTIVE RECORD CODE ------
   static protected $database;
-  static protected $db_columns = ['id', 'common_name', 'habitat', 'food', 'conservation_id', 'backyard_tips'];
+  static protected $db_columns = ['id', 'common_name', 'habitat', 'food'];
+  static protected $table_name = 'birds';
 
   public $id;
   public $common_name;
   public $habitat;
   public $food;
-  public $conervation_id;
-  public $backyard_tips;
 
   public function __construct($args=[]) {
     $this->common_name = $args['common_name'] ?? '';
     $this->habitat = $args['habitat'] ?? '';
     $this->food = $args['food'] ?? '';
-    $this->conservation_id = $args['conservation_id'] ?? '';
-    $this->backyard_tips = $args['backyard_tips'] ?? '';
   }
 
   static public function set_database($database) {
@@ -70,27 +67,6 @@ class Bird extends DatabaseObject {
     return $object;
   }
 
-  // TODO: Walkthrough
-  public function update() {
-    $attributes = $this->sanitized_attributes();
-    $attribute_pairs = [];
-    foreach($attributes as $key => $value) {
-      $attribute_pairs[] = "{$key}='{$value}'";
-    }
-
-   // print_r($attribute_pairs); exit;
-
-    $sql = "UPDATE bird SET ";
-    $sql .= join(', ', $attribute_pairs);
-    $sql .= " WHERE id='" . self::$database->escape_string($this->id) . "' ";
-    $sql .= "LIMIT 1";
-
-echo $sql; exit;
-
-    $result = self::$database->query($sql);
-    return $result;
-  }
-
 public function merge_attributes($arg=[]) {
   foreach($arg as $key => $value) {
    // echo "key: $key value: $value<br>";
@@ -125,10 +101,7 @@ public function create() {
         continue; 
       }
       $attributes[$column] = $this->$column;
-    // confused with this output
-      // var_dump($this->$column);
     }
-   // print_r($attributes); exit;
     return $attributes;
   }
 
@@ -142,31 +115,7 @@ public function create() {
   // ----- END OF ACTIVE RECORD CODE ------
 
   public function name() {
-    return "{$this->brand} {$this->model} {$this->year}";
-  }
-  public function weight_kg() {
-    return number_format($this->weight_kg, 2) . ' kg';
-  }
-
-  public function set_weight_kg($value) {
-    $this->weight_kg = floatval($value);
-  }
-
-  public function weight_lbs() {
-    $weight_lbs = floatval($this->weight_kg) * 2.2046226218;
-    return number_format($weight_lbs, 2) . ' lbs';
-  }
-
-  public function set_weight_lbs($value) {
-    $this->weight_kg = floatval($value) / 2.2046226218;
-  }
-
-  public function condition() {
-    if($this->condition_id > 0) {
-      return self::CONDITION_OPTIONS[$this->condition_id];
-    } else {
-      return "Unknown";
-    }
+    return "{$this->common_name}";
   }
 
 }
